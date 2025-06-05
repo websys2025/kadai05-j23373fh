@@ -8,8 +8,14 @@
 * レスポンスフォーマット：JSON形式。
 ### Q3-2. 各自で調査したAPIについて説明せよ。
 * APIの名称と参照URL
+* API名：Open-Meteo API
+* 参照URL：https://open-meteo.com/
 * エンドポイントと機能
+* エンドポイント：https://api.open-meteo.com/v1/forecast
+* 機能：緯度・経度を指定して天気予報や現在の天気情報を取得できる。
 * リクエストとレスポンスのフォーマット
+* リクエスト：GET https://api.open-meteo.com/v1/forecast?latitude=35.68&longitude=139.76&current_weather=true
+* レスポンスフォーマット：JSON形式。
 ### Q3-3. 感想
 * 今回の課題で苦労したこと
 * APIを探すことに苦労した。
