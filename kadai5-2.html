@@ -1,22 +1,36 @@
+<!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="utf-8">
-    <title>演習課題5-2：外部APIの呼び出しテスト</title>
+    <meta charset="UTF-8" />
+    <title>天気情報取得テスト</title>
 </head>
 <body>
-    <h1 id="msg">何かのAPI</h1>
-    <form name="apiform"><p>
-        何かのフォーム：<input type="text" name="form_data">
-        <button type="button" id="btn1" onclick="some_api(this.form)">実行</button>
-    </p></form>
-    
-    <div id="result"></div>
+    <h1>東京の現在の天気</h1>
+    <button id="getWeatherBtn">天気を取得</button>
+    <div id="weatherResult"></div>
+
     <script>
-        async function some_api(myForm) {
-            // ここにコードを書く
-            document.getElementById("result").innerHTML += myForm.form_data.value+"<br />";
-            document.apiform.reset();
-        }
+        document.getElementById("getWeatherBtn").addEventListener("click", async () => {
+            const url = 'https://api.open-meteo.com/v1/forecast?latitude=35.68&longitude=139.76&current_weather=true';
+
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error('天気情報の取得に失敗しました');
+                const data = await response.json();
+
+                const temp = data.current_weather.temperature;
+                const windspeed = data.current_weather.windspeed;
+                const time = data.current_weather.time;
+
+                document.getElementById("weatherResult").innerHTML = `
+                    <p>日時: ${time}</p>
+                    <p>気温: ${temp} °C</p>
+                    <p>風速: ${windspeed} km/h</p>
+                `;
+            } catch (error) {
+                document.getElementById("weatherResult").innerText = 'エラー: ' + error.message;
+            }
+        });
     </script>
 </body>
 </html>
